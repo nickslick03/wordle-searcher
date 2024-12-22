@@ -1,0 +1,108 @@
+:root {
+    --letter-border: #3a3a3c;
+    --absent: #3a3a3c;
+    --present: #b59f3b;
+    --correct: #538d4e;
+    --button: #818384;
+    --letter-width: 80px;
+    --letter-border-width: 2px;
+}
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    text-align: center;
+    background-color: #121213;
+    color: white;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-bottom: 80px;
+}
+
+#search {
+
+    & {
+        user-select: none;
+    }
+
+    .wordle-search {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .wordle-search > div {
+        width: calc(var(--letter-width));
+        height: calc(var(--letter-width));
+        border: none;
+        box-sizing: border-box;
+        background-color: var(--absent);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+    }
+
+    .wordle-search > div:empty {
+        width: var(--letter-width);
+        height: var(--letter-width);
+        border: var(--letter-border-width) var(--letter-border) solid;
+        background-color: var(--absent);
+        background-color: rgba(0,0,0,0);
+    }
+
+    .wordle-search > div.present {
+        background-color: var(--present);
+    }
+
+    .wordle-search > div.correct {
+        background-color: var(--correct);
+    }
+
+    .error {
+        color: maroon;
+        margin-top: 40px;
+        visibility: hidden;
+    }
+
+    button {
+        margin-top: 40px;
+        background-color: var(--button);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        padding: 15px;
+        cursor: pointer;
+        font-size: large;
+    }
+}
+
+#results {
+    & {
+        /* visibility: hidden; */
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    ul {
+        font-size: 1.5rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: min-content;
+    }
+
+    li {
+        width: max-content;
+    }
+}
