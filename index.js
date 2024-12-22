@@ -4,6 +4,12 @@ const search_letters = [];
 const search_colors = [];
 const color_map = ['absent', 'present', 'correct'];
 
+const pos = document.documentElement.scrollTop;
+const calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+const scrollValue = Math.round( pos * 100 / calcHeight);
+
+let is_results_in_viewport = isNaN(scrollValue);
+
 (async () => {
     const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
     const text = await res.text();
@@ -97,6 +103,10 @@ $('#search').on('submit', function (e) {
         li.textContent = word;
         $('#results ul').append(li);
     });
+
+    if (!is_results_in_viewport) {
+        $('#results')[0].scrollIntoView({ behavior: "smooth" });
+    }
 });
 
 /**
