@@ -4,35 +4,47 @@ const search_letters = [];
 const search_colors = [];
 const color_map = ['absent', 'present', 'correct'];
 
+function is_valid_input(key) {
+    return !(key === 'Backspace' && search_letters.length === 0 || 
+    key !== 'Backspace' && search_letters.length === 5 || 
+    (key.length > 1 && key !== 'Backspace') || !/[A-z]/.test(key));
+}
+
 $('#wordle-search').on('keydown', function (e) {
-    if (!/[A-z]/.test(e.originalEvent.key)) {
-        e.preventDefault();
+    e.preventDefault();
+    const key = e.key;
+    if (!is_valid_input(key)) return;
+
+    if (key === 'Backspace') {
+        search_letters.pop();
+        search_colors.pop();
+    } else {
+        search_letters.push(key.toUpperCase());
+        search_colors.push(0);
     }
+    render_wordle_search();
 });
 
-$(document).on('keyup', function (e) {
+$(document).on('keydown', function (e) {
     const key = e.originalEvent.key;
 
+    if (window.innerWidth < 500) return;
     if (key === 'Enter') {
         $('#search button[type="submit"]')[0].click();
         return;
     }
-    if (key === 'Backspace' && search_letters.length === 0) return;
-    else if (key !== 'Backspace' && search_letters.length === 5) return;
-    else if (key.length > 1 && key !== 'Backspace' || !/[A-z]/.test(key)) return;
+    if (!is_valid_input(key)) return;
 
     // $('#search .error')[0].style.visibility = 'hidden';
 
     if (key === 'Backspace') {
-        $('.wordle-search-display > div')[search_letters.length - 1].textContent = '';
         search_letters.pop();
         search_colors.pop();
-        $('.wordle-search-display > div')[search_letters.length].className = '';
     } else {
-        $('.wordle-search-display > div')[search_letters.length].textContent = key.toUpperCase();
         search_letters.push(key.toUpperCase());
         search_colors.push(0);
     }
+    render_wordle_search();
 });
 
 $('.wordle-search-display > div').on('click', function () {
@@ -40,9 +52,23 @@ $('.wordle-search-display > div').on('click', function () {
 
     const index = $(this).index('.wordle-search-display > div');
     const color_index = (Math.max(color_map.indexOf(this.className), 0) + 1) % 3;
-    this.className = color_map[color_index];
     search_colors[index] = color_index;
+    render_wordle_search();
 });
+
+function render_wordle_search() {
+    $('#wordle-search')[0].value = search_letters.join('');
+    for (let i = 0; i < search_letters.length; i ++) {
+        const div = $('.wordle-search-display > div')[i];
+        div.textContent = search_letters[i];
+        div.className = color_map[search_colors[i]];
+    }
+    for (let i = search_letters.length; i < 5; i ++) {
+        const div = $('.wordle-search-display > div')[i];
+        div.textContent = '';
+        div.className = '';
+    }
+}
 
 $('#search').on('submit', function (e) {
     e.preventDefault();
