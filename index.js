@@ -4,32 +4,41 @@ const search_letters = [];
 const search_colors = [];
 const color_map = ['absent', 'present', 'correct'];
 
+$('#wordle-search').on('keydown', function (e) {
+    if (!/[A-z]/.test(e.originalEvent.key)) {
+        e.preventDefault();
+    }
+});
 
-$(document).on('keydown', function (e) {
+$(document).on('keyup', function (e) {
     const key = e.originalEvent.key;
 
+    if (key === 'Enter') {
+        $('#search button[type="submit"]')[0].click();
+        return;
+    }
     if (key === 'Backspace' && search_letters.length === 0) return;
     else if (key !== 'Backspace' && search_letters.length === 5) return;
-    else if (key.length > 1 && key !== 'Backspace' || !/[a-z]/.test(key)) return;
+    else if (key.length > 1 && key !== 'Backspace' || !/[A-z]/.test(key)) return;
 
     // $('#search .error')[0].style.visibility = 'hidden';
 
     if (key === 'Backspace') {
-        $('.wordle-search > div')[search_letters.length - 1].textContent = '';
+        $('.wordle-search-display > div')[search_letters.length - 1].textContent = '';
         search_letters.pop();
         search_colors.pop();
-        $('.wordle-search > div')[search_letters.length].className = '';
+        $('.wordle-search-display > div')[search_letters.length].className = '';
     } else {
-        $('.wordle-search > div')[search_letters.length].textContent = key.toUpperCase();
+        $('.wordle-search-display > div')[search_letters.length].textContent = key.toUpperCase();
         search_letters.push(key.toUpperCase());
         search_colors.push(0);
     }
 });
 
-$('.wordle-search > div').on('click', function () {
+$('.wordle-search-display > div').on('click', function () {
     if (this.textContent === '') return;
 
-    const index = $(this).index('.wordle-search > div');
+    const index = $(this).index('.wordle-search-display > div');
     const color_index = (Math.max(color_map.indexOf(this.className), 0) + 1) % 3;
     this.className = color_map[color_index];
     search_colors[index] = color_index;

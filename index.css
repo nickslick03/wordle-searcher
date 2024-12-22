@@ -27,17 +27,43 @@ h1 {
 
     & {
         user-select: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
     }
 
-    .wordle-search {
+    .wordle-search-display {
         display: flex;
         justify-content: center;
         gap: 10px;
     }
 
-    .wordle-search > div {
-        width: calc(var(--letter-width));
-        height: calc(var(--letter-width));
+    input {
+        display: none;
+    }
+
+    @media (max-width: 500px) {
+        input {
+            display: block;
+            font-size: 1rem;
+            text-align: center;
+            background-color: rgba(0,0,0,0);
+            border: var(--letter-border-width) solid var(--letter-border);
+            color: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--button);
+        }
+    }
+
+    .wordle-search-display > div {
+        width: 16vw;
+        height: 16vw;
+        max-width: calc(var(--letter-width));
+        max-height: calc(var(--letter-width));
         border: none;
         box-sizing: border-box;
         background-color: var(--absent);
@@ -47,30 +73,26 @@ h1 {
         font-size: 1.5rem;
     }
 
-    .wordle-search > div:empty {
-        width: var(--letter-width);
-        height: var(--letter-width);
-        border: var(--letter-border-width) var(--letter-border) solid;
+    .wordle-search-display > div:empty {
+        border: var(--letter-border-width) solid var(--letter-border);
         background-color: var(--absent);
         background-color: rgba(0,0,0,0);
     }
 
-    .wordle-search > div.present {
+    .wordle-search-display > div.present {
         background-color: var(--present);
     }
 
-    .wordle-search > div.correct {
+    .wordle-search-display > div.correct {
         background-color: var(--correct);
     }
 
     .error {
         color: maroon;
-        margin-top: 40px;
         visibility: hidden;
     }
 
     button {
-        margin-top: 40px;
         background-color: var(--button);
         border: none;
         border-radius: 4px;
@@ -83,7 +105,7 @@ h1 {
 
 #results {
     & {
-        /* visibility: hidden; */
+        visibility: hidden;
         margin-top: 40px;
         display: flex;
         flex-direction: column;
