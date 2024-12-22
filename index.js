@@ -4,10 +4,16 @@ const search_letters = [];
 const search_colors = [];
 const color_map = ['absent', 'present', 'correct'];
 
+(async () => {
+    const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
+    const text = await res.text();
+    all_wordle_words.push(...text.split('\n'));
+})();
+
 function is_valid_input(key) {
-    return !(key === 'Backspace' && search_letters.length === 0 || 
-    key !== 'Backspace' && search_letters.length === 5 || 
-    (key.length > 1 && key !== 'Backspace') || !/[A-z]/.test(key));
+    return !(key === 'Backspace' && search_letters.length === 0 ||
+        key !== 'Backspace' && search_letters.length === 5 ||
+        (key.length > 1 && key !== 'Backspace') || !/[A-z]/.test(key));
 }
 
 $('#wordle-search').on('keydown', function (e) {
@@ -58,12 +64,12 @@ $('.wordle-search-display > div').on('click', function () {
 
 function render_wordle_search() {
     $('#wordle-search')[0].value = search_letters.join('');
-    for (let i = 0; i < search_letters.length; i ++) {
+    for (let i = 0; i < search_letters.length; i++) {
         const div = $('.wordle-search-display > div')[i];
         div.textContent = search_letters[i];
         div.className = color_map[search_colors[i]];
     }
-    for (let i = search_letters.length; i < 5; i ++) {
+    for (let i = search_letters.length; i < 5; i++) {
         const div = $('.wordle-search-display > div')[i];
         div.textContent = '';
         div.className = '';
@@ -93,12 +99,6 @@ $('#search').on('submit', function (e) {
     });
 });
 
-(async () => {
-    const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
-    const text = await res.text();
-    all_wordle_words.push(...text.split('\n'));
-})();
-
 /**
  * Returns all the valid wordle words in the word_list given the search_word and the respective colors for each letter.
  * @param {string[]} word_list 
@@ -107,28 +107,28 @@ $('#search').on('submit', function (e) {
  */
 function word_filter(word_list, search_word, colors) {
     const search_list = colors
-        .map((color, index) => ({color, index}))
+        .map((color, index) => ({ color, index }))
         .sort((a, b) => b.color - a.color)
         .map(o => o.index);
-    
+
     return word_list.filter(word => {
         for (let i of search_list) {
             const letter = search_word[i];
             switch (color_map[colors[i]]) {
                 case 'absent':
                     if (word.includes(letter)) return false;
-                break;
+                    break;
                 case 'present':
                     const search_word_num = create_binary_rep(search_word, letter);
                     const word_num = create_binary_rep(word, letter);
                     if ((word_num === 0) || ((search_word_num & word_num) > 0))
                         return false;
                     word = word.replace(search_word[i], ' ');
-                break;
+                    break;
                 case 'correct':
                     if (word.indexOf(letter) !== i) return false;
                     word = word.replace(search_word[i], ' ');
-                break;
+                    break;
             }
         }
         return true;
