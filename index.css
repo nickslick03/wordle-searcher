@@ -24,107 +24,102 @@ h1 {
 }
 
 #search {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
 
-    & {
-        user-select: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
-    }
+#search .wordle-search-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
 
-    .wordle-search-display {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
+#search input {
+    display: none;
+}
 
-    input {
-        display: none;
-    }
-
-    @media (max-width: 500px) {
-        input {
-            display: block;
-            font-size: 1rem;
-            text-align: center;
-            background-color: rgba(0,0,0,0);
-            border: var(--letter-border-width) solid var(--letter-border);
-            color: white;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--button);
-        }
-    }
-
-    .wordle-search-display > div {
-        width: 16vw;
-        height: 16vw;
-        max-width: calc(var(--letter-width));
-        max-height: calc(var(--letter-width));
-        border: none;
-        box-sizing: border-box;
-        background-color: var(--absent);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-    }
-
-    .wordle-search-display > div:empty {
+@media (max-width: 500px) {
+    #search input {
+        display: block;
+        font-size: 1rem;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0);
         border: var(--letter-border-width) solid var(--letter-border);
-        background-color: var(--absent);
-        background-color: rgba(0,0,0,0);
-    }
-
-    .wordle-search-display > div.present {
-        background-color: var(--present);
-    }
-
-    .wordle-search-display > div.correct {
-        background-color: var(--correct);
-    }
-
-    .error {
-        color: maroon;
-        visibility: hidden;
-    }
-
-    button {
-        background-color: var(--button);
-        border: none;
-        border-radius: 4px;
         color: white;
-        padding: 15px;
-        cursor: pointer;
-        font-size: large;
+    }
+
+    #search input:focus {
+        outline: none;
+        border-color: var(--button);
     }
 }
 
+#search .wordle-search-display > div {
+    width: 16vw;
+    height: 16vw;
+    max-width: calc(var(--letter-width));
+    max-height: calc(var(--letter-width));
+    border: none;
+    box-sizing: border-box;
+    background-color: var(--absent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+#search .wordle-search-display > div:empty {
+    border: var(--letter-border-width) solid var(--letter-border);
+    background-color: var(--absent);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#search .wordle-search-display > div.present {
+    background-color: var(--present);
+}
+
+#search .wordle-search-display > div.correct {
+    background-color: var(--correct);
+}
+
+#search .error {
+    color: maroon;
+    visibility: hidden;
+}
+
+#search button {
+    background-color: var(--button);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    font-size: large;
+}
+
 #results {
-    & {
-        visibility: hidden;
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    visibility: hidden;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    h2 {
-        font-size: 2rem;
-    }
+#results h2 {
+    font-size: 2rem;
+}
 
-    ul {
-        font-size: 1.5rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        width: min-content;
-    }
+#results ul {
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: min-content;
+}
 
-    li {
-        width: max-content;
-    }
+#results li {
+    width: max-content;
 }
