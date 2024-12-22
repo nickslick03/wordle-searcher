@@ -19,7 +19,10 @@
             </div>
             <input type="text" id="wordle-search" placeholder="Enter word here..."  maxlength="5">
             <div class="error">Please type in 5 letters.</div>
-            <button type="submit">Search</button>    
+            <div class="buttons">
+                <button type="submit">Search</button> 
+                <button id="about" type="button">?</button>      
+            </div>     
         </form>
         <div id="results">
             <div class="results-header">
@@ -28,6 +31,20 @@
             <ul></ul>
         </div>
     </main>
+    <div id="modal-container">
+        <div id="modal">
+            <h2>About</h2>
+            <p>
+                Wordle Searcher allows you to take a wordle result and search for all the possible answers.
+                Type in the word, click the boxes to change the result color, and click search to see what
+                wordle words could come from that result.
+            </p>
+            <footer>
+                Idea and Python prototype by Christian Epps, Website by 
+                <a href="https://www.linkedin.com/in/nicholas-epps-597b94295/">Nicholas Epps</a>
+            </footer>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="index.js"></script>
 </body>

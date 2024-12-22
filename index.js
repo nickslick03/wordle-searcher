@@ -109,6 +109,14 @@ $('#search').on('submit', function (e) {
     }
 });
 
+$('#about').on('click', function (e) {
+    $('#modal-container')[0].style.display = 'flex';
+});
+
+$('#modal-container').on('click', function (e) {
+    if (e.target === this) this.style.display = 'none';
+});
+
 /**
  * Returns all the valid wordle words in the word_list given the search_word and the respective colors for each letter.
  * @param {string[]} word_list 
