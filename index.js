@@ -1,4 +1,5 @@
 const all_wordle_words = [];
+let all_wordle_words_set = new Set();
 
 let selected_container = 0;
 const search_letters = [[]];
@@ -26,6 +27,7 @@ let is_result_in_viewport = true;
     const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
     const text = await res.text();
     all_wordle_words.push(...text.split('\n'));
+    all_wordle_words_set = new Set(all_wordle_words);
 })();
 
 [...$('.search-display-container > div')].slice(1).forEach(div => {
@@ -156,12 +158,21 @@ $('#search').on('submit', function (e) {
 
     if (search_letters.some(letters => letters.length !== 5)) {
         $(this).find('.error')[0].style.visibility = 'visible';
+        $(this).find('.error').text('Each word row must have 5 letters.');
         return;
     } else {
         $(this).find('.error')[0].style.visibility = 'hidden';
     }
 
     const search_words = search_letters.map(letters => letters.join('').toLowerCase());
+    for (let search_word of search_words) {
+        if (!all_wordle_words_set.has(search_word)) {
+            $(this).find('.error')[0].style.visibility = 'visible';
+            $(this).find('.error').text(`${search_word} is not a valid worldle word.`);
+            return;
+        }
+    }
+
     let filtered_words = [...all_wordle_words];
     for (let i = 0; i < search_letters.length; i ++) {
         filtered_words = word_filter(filtered_words, search_words[i], search_colors[i]);
