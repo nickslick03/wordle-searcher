@@ -6,17 +6,7 @@ const search_letters = [[]];
 const search_colors = [[]];
 const color_map = ['absent', 'present', 'correct'];
 
-let is_result_in_viewport = true;
-(new IntersectionObserver(
-    (e) => {
-        const is_visible = Math.round(e[0].intersectionRatio) === 1;
-        is_result_in_viewport = is_visible;
-    },
-    {
-        rootMargin: "0px 0px",
-        threshold: [0, 1], // default threshold is 0
-    }
-)).observe($('.results-header')[0]);
+let is_result_in_viewport 
 
 (async () => {
     const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
@@ -181,7 +171,7 @@ $('#search').on('submit', function (e) {
         $('#results ul').append(li);
     });
 
-    if (!is_result_in_viewport) {
+    if (window.outerWidth <= 500) {
         $('.results-header')[0].scrollIntoView({ behavior: "smooth", block: 'center' });
     }
 });
