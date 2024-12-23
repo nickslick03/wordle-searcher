@@ -195,7 +195,7 @@ function word_filter(word_list, search_word, colors) {
         .sort((a, b) => b.color - a.color)
         .map(o => o.index);
 
-    return [...word_list].filter(word => {
+    return word_list.filter(word => {
         for (let i of search_list) {
             const letter = search_word.charAt(i);
             switch (color_map[colors[i]]) {
@@ -205,17 +205,13 @@ function word_filter(word_list, search_word, colors) {
                 case 'present':
                     const search_word_num = create_binary_rep(search_word, letter);
                     const word_num = create_binary_rep(word, letter);
-
                     if ((word_num === 0) || ((search_word_num & word_num) > 0))
                         return false;
                     word = word.replace(search_word[i], ' ');
                 break;
                 case 'correct':
-                    const index = [...word].findIndex((l, idx) => l === letter && i === idx);
-                    if (index === -1) return false;
-                    const word_list = word.split('');
-                    word_list[i] = ' ';
-                    word = word_list.join('');
+                    if (word[i] !== letter) return false;
+                    word = word.substring(0, i) + ' ' + word.substring(i + 1);
                 break;
             }
         }
@@ -224,7 +220,7 @@ function word_filter(word_list, search_word, colors) {
 }
 
 /**
- * Converts the word into a number where, in binary, each numbers place is a 1 if that letter is the letter parameter and 0 otherwise.
+ * Converts the word into a number where, in binary, each numbers place is a 1 if that letter is the letter parameter and 0 if not.
  * @param {string} word 
  * @param {string} letter 
  */
