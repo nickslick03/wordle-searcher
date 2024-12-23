@@ -44,7 +44,7 @@ h1 {
 }
 
 #search .wordle-search-display.selected {
-    background-color: rgb(58, 58, 60, .5);
+    background-color: rgb(58, 58, 60, .6);
 }
 
 #search input {
