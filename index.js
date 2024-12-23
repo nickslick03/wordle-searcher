@@ -6,8 +6,6 @@ const search_letters = [[]];
 const search_colors = [[]];
 const color_map = ['absent', 'present', 'correct'];
 
-let is_result_in_viewport 
-
 (async () => {
     const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
     const text = await res.text();
