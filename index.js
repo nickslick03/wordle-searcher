@@ -151,7 +151,7 @@ $('#search').on('submit', function (e) {
     for (let search_word of search_words) {
         if (!all_wordle_words_set.has(search_word)) {
             $(this).find('.error')[0].style.visibility = 'visible';
-            $(this).find('.error').text(`${search_word} is not a valid worldle word.`);
+            $(this).find('.error').text(`${search_word} is not a valid wordle word.`);
             return;
         }
     }
