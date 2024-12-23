@@ -52,6 +52,10 @@ h1 {
 }
 
 @media (max-width: 500px) {
+    h1 {
+        margin-bottom: 40px;
+    }
+
     #search input {
         display: block;
         font-size: 1rem;
@@ -157,7 +161,7 @@ h1 {
 #modal-container {
     display: none;
     position: fixed;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .8);
     width: 100vw;
     height: 100vh;
     align-items: center;
@@ -176,10 +180,26 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
 }
 
 #modal h2 {
     margin: 0;
+}
+
+#modal .close-modal {
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    right: 12px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 a {

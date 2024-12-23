@@ -197,7 +197,8 @@ $('#about').on('click', function (e) {
 });
 
 $('#modal-container').on('click', function (e) {
-    if (e.target === this) this.style.display = 'none';
+    if (e.target === this || e.target.className === 'close-modal') 
+        this.style.display = 'none';
 });
 
 /**
