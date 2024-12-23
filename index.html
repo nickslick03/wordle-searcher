@@ -10,23 +10,57 @@
     <h1>Wordle Searcher</h1>
     <main>
         <form id="search">
-            <div class="wordle-search-display">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div class="search-display-container">
+                <div class="wordle-search-display selected" data-index="0">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="wordle-search-display" data-index="1">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="wordle-search-display" data-index="2">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="wordle-search-display" data-index="3">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="wordle-search-display" data-index="4">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div> 
+            </div>
+            <div class="buttons add-remove">
+                <button class="add" type="button">+</button>
+                <button class="remove" type="button">-</button>
             </div>
             <input type="text" id="wordle-search" placeholder="Enter word here..."  maxlength="5">
-            <div class="error">Please type in 5 letters.</div>
+            <div class="error">Each word row must have 5 letters.</div>
             <div class="buttons">
                 <button type="submit">Search</button> 
-                <button id="about" type="button">?</button>      
+                <button id="about" type="button">?</button>
             </div>     
         </form>
         <div id="results">
             <div class="results-header">
-                <h2></h2>
+                <h2>Results</h2>
             </div>
             <ul></ul>
         </div>
@@ -35,9 +69,10 @@
         <div id="modal">
             <h2>About</h2>
             <p>
-                Wordle Searcher allows you to take a wordle result and search for all the possible answers.
+                Wordle Searcher allows you to take wordle results and search for all the possible answers.
                 Type in the word, click the boxes to change the result color, and click search to see what
-                wordle words could come from that result.
+                wordle words could come from that result. Use the plus and minus buttons to filter multiple
+                results.
             </p>
             <footer>
                 Idea and Python prototype by Christian Epps, Website by 

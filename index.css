@@ -31,10 +31,20 @@ h1 {
     gap: 40px;
 }
 
+#search .search-display-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #search .wordle-search-display {
     display: flex;
     justify-content: center;
     gap: 10px;
+}
+
+#search .wordle-search-display.selected {
+    background-color: rgb(58, 58, 60, .5);
 }
 
 #search input {
@@ -83,6 +93,17 @@ h1 {
 
 #search .wordle-search-display > div.correct {
     background-color: var(--correct);
+}
+
+#search .add-remove button {
+    padding: 10px;
+    font-size: 1.6rem;
+}
+
+#search .add-remove button:disabled {
+    background-color: var(--absent);
+    cursor: default;
+    color: rgba(255,255,255,.6);
 }
 
 #search .error {
@@ -136,7 +157,7 @@ h1 {
 #modal-container {
     display: none;
     position: fixed;
-    background-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, .5);
     width: 100vw;
     height: 100vh;
     align-items: center;
