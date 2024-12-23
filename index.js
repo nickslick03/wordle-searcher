@@ -54,7 +54,10 @@ $('#search .remove').on('click', function (e) {
         $('#search .add')[0].removeAttribute('disabled');    
     }
     $('#search .search-display-container > div')[search_letters.length - 1].style.display = 'none';
-    [...$('.wordle-search-display')[search_letters.length - 1].children].forEach(div => div.textContent = '');
+    [...$('.wordle-search-display')[search_letters.length - 1].children].forEach(div => {
+        div.textContent = '';
+        div.classList.remove(...color_map);
+    });
     if (selected_container === search_letters.length - 1) {
         select_display(selected_container - 1);
     }
@@ -163,7 +166,7 @@ $('#search').on('submit', function (e) {
     for (let i = 0; i < search_letters.length; i ++) {
         filtered_words = word_filter(filtered_words, search_words[i], search_colors[i]);
     }
-
+    console.log(filtered_words);
     $('#results')[0].style.visibility = 'visible';
     $('#results h2').text(`${filtered_words.length} Result${filtered_words.length === 1 ? '' : 's'}`);
     $('#results ul').text('');
@@ -198,24 +201,28 @@ function word_filter(word_list, search_word, colors) {
         .sort((a, b) => b.color - a.color)
         .map(o => o.index);
 
-    return word_list.filter(word => {
+    return [...word_list].filter(word => {
         for (let i of search_list) {
-            const letter = search_word[i];
+            const letter = search_word.charAt(i);
             switch (color_map[colors[i]]) {
                 case 'absent':
                     if (word.includes(letter)) return false;
-                    break;
+                break;
                 case 'present':
                     const search_word_num = create_binary_rep(search_word, letter);
                     const word_num = create_binary_rep(word, letter);
+
                     if ((word_num === 0) || ((search_word_num & word_num) > 0))
                         return false;
                     word = word.replace(search_word[i], ' ');
-                    break;
+                break;
                 case 'correct':
-                    if (word.indexOf(letter) !== i) return false;
-                    word = word.replace(search_word[i], ' ');
-                    break;
+                    const index = [...word].findIndex((l, idx) => l === letter && i === idx);
+                    if (index === -1) return false;
+                    const word_list = word.split('');
+                    word_list[i] = ' ';
+                    word = word_list.join('');
+                break;
             }
         }
         return true;
