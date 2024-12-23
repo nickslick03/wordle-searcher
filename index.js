@@ -11,11 +11,6 @@ let is_result_in_viewport = true;
     (e) => {
         const is_visible = Math.round(e[0].intersectionRatio) === 1;
         is_result_in_viewport = is_visible;
-
-        const percent = Math.round(e[0].intersectionRatio * 100) + "%"
-        const isTop = e[0].boundingClientRect.top < e[0].rootBounds.top
-        const isIntersecting = e[0].isIntersecting
-        console.log({percent, isTop, isIntersecting, entry: e[0]})
     },
     {
         rootMargin: "0px 0px",
@@ -177,7 +172,6 @@ $('#search').on('submit', function (e) {
     for (let i = 0; i < search_letters.length; i ++) {
         filtered_words = word_filter(filtered_words, search_words[i], search_colors[i]);
     }
-    console.log(filtered_words);
     $('#results')[0].style.visibility = 'visible';
     $('#results h2').text(`${filtered_words.length} Result${filtered_words.length === 1 ? '' : 's'}`);
     $('#results ul').text('');
