@@ -69,7 +69,10 @@ function is_valid_input(key) {
 $('#wordle-search').on('keydown', function (e) {
     e.preventDefault();
     const key = e.key;
-    if (!is_valid_input(key)) return;
+    if (!is_valid_input(key)) {
+        this.value = search_letters[selected_container].join('');
+        return;
+    };
 
     if (key === 'Backspace') {
         search_letters[selected_container].pop();
