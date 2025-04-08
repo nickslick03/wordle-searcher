@@ -188,6 +188,10 @@ h1 {
     margin: 0;
 }
 
+#modal ul {
+    text-align: left;
+}
+
 #modal .close-modal {
     padding: 0;
     position: absolute;

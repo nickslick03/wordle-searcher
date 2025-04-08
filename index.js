@@ -36,7 +36,7 @@ $('#search .remove').on('click', function (e) {
     if (search_letters.length === 2) {
         this.setAttribute('disabled', '');
     } else if (search_letters.length === 5) {
-        $('#search .add')[0].removeAttribute('disabled');    
+        $('#search .add')[0].removeAttribute('disabled');
     }
     $('#search .search-display-container > div')[search_letters.length - 1].style.display = 'none';
     [...$('.wordle-search-display')[search_letters.length - 1].children].forEach(div => {
